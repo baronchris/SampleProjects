@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DVD Library</title>
+         <link href="css/bootstrap.css" rel="stylesheet"/>
+    </head>
+<body>
+        <h1 id="titleDisplay" style="text-align:center">DVD Library</h1>
+        <ul class="list-group" id="errorMessages"></ul>
+
+    <div id="indexContainer">
+      <div class="container" id="menu" >
+          <div class="row" style="border:solid 1px; color:black">
+              <div class="col-md-5">
+                  <button type="button" id="addDVDButton" class="btn btn-success" >Add A DVD</button>
+              </div>
+
+              <div class="col-md-7" id="searchform" >
+                  <div class="form-group">
+                      <form class="form-inline" id="searchForm">
+                          <button class="btn btn-info" id="searchButton" type="button">Search</button>
+                        
+                            <select id="catecorySelect" required>
+                                <option disabled selected>Select Category</option>
+                                <option value="title">Title</option>
+                                <option value="director">Director</option>
+                                <option value="rating">Rating</option>
+                                <option value="realeaseYear">Year Released</option> 
+                            </select>       
+                            <input class="form-control" type="text" id="searchTerm" placeholder="Search Term"/> 
+                  </div>
+                          
+                </div>
+                
+        </div>
+        </div>
+        <div class="container" id="contentContainer">
+                <h2 style="text-align:center">My DVDs</h2>
+                <table id="DVDTable" class="table table-striped" style="border:solid 1px; color: black; text-align:center" id="contacts">
+                    <tr style="text-align:center">
+                        <th width="20%" style="border:solid 1px; color:black">Title</th>
+                        <th width="20%" style="border:solid 1px; color:black">Release Date</th>
+                        <th width="20%" style="border:solid 1px; color:black">Director</th>
+                        <th width="20%" style="border:solid 1px; color:black">Rating</th>
+                        <th width="10%" style="border:solid 1px; color:black"></th>
+                        <th width="10%" style="border:solid 1px; color:black"></th>
+                    </tr>
+                    <tbody id="contentRows">
+
+                    </tbody>
+                </table>
+
+        </div>
+    </div> 
+
+
+    <div id="addFormDiv" class="container" style="display:none">
+        <H2 style="text-align:center">Add A DVD</H2>
+        <form id=addForm class="form-horizontal" role=form >
+            <div class="form-group">
+               
+                <label for="addTitle" class="col-md-4 control-label" style="font-size: 18pt">Title</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" id="addTitle" placeholder="Title" required/>
+                </div>
+         </div>
+         <br/>
+         <br/>
+         <div class="form-group">
+                <label for="addreleaseYear" class="col-md-4 control-label" style="font-size: 18pt">Release Date</label>
+                <div class="col-md-8">
+                    <input type="number" id="addreleaseYear" placeholder="year released" required/>
+                </div>
+         </div>
+         <br/>
+         <br/>
+         <div class="form-group">
+                
+                 <label for="addDirector" class="col-md-4 control-label" style="font-size: 18pt">Director</label>
+                 <div class="col-md-8">
+                     <input type="text" class="form-control" id="addDirector" placeholder="Directed by" />
+                 </div>
+          </div>
+          <br/>
+          <br/>
+          <div class="form-group">
+                 <label for="addRating" class="col-md-4 control-label" style="font-size: 18pt">Rating</label>
+                 <div class="col-md-8">
+                        <select id="addRating" style="font-size: 18">
+                                <option disabled selected>Rating</option>
+                                <option value="1">G</option>
+                                <option value="2">PG</option>
+                                <option value="3">PG-13</option>
+                                <option value="4">R</option> 
+                                <option value="5">NC-17</option> 
+                        </select>    
+                 </div>
+          </div>
+          <br/>
+          <br/>
+          <br/>
+          <div class="form-group">
+              <label for="addNotes" class="col-md-4 control-label" style="font-size: 18pt">Notes:</label>
+              <textarea id="addNotes" class="col-md-8 form-control" placeholder="Use this area to record notes about this title"></textarea>
+          </div>
+
+          <div class ="form-group">
+              <button class="btn btn-info" id="addCancelButton" type="button">Cancel</button>
+              <button class="btn btn-success" type="button" id=confirmAddButton>Add DVD</button>
+          </div>
+        </form>
+    </div>
+
+    <div id="editFormDiv" class="container" style="display:none">
+            <H2 style="text-align:center">Edit A DVD</H2>
+            <form id=editForm class="form-horizontal" role=form >
+                    <input type="hidden" id="editDVDID">
+                <div class="form-group">
+                   
+                    <label for="editTitle" class="col-md-4 control-label" style="font-size: 18pt">Title</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="editTitle" placeholder="Title" required/>
+                    </div>
+             </div>
+             <br/>
+             <br/>
+             <div class="form-group">
+                    <label for="editreleaseYear" class="col-md-4 control-label" style="font-size: 18pt">Release Date</label>
+                    <div class="col-md-8">
+                        <input type="number" class="form-control" id="editreleaseYear" placeholder="year released" required/>
+                    </div>
+             </div>
+             <br/>
+             <br/>
+             <div class="form-group">
+                    
+                     <label for="editDirector" class="col-md-4 control-label" style="font-size: 18pt">Director</label>
+                     <div class="col-md-8">
+                         <input type="text" class="form-control" id="editDirector" placeholder="Directed by" />
+                     </div>
+              </div>
+              <br/>
+              <br/>
+              <div class="form-group">
+                     <label for="editRating" class="col-md-4 control-label" style="font-size: 18pt">Rating</label>
+                     <div class="col-md-8">
+                            <select id="editRating" style="font-size: 18">
+                                    <option disabled selected>Rating</option>
+                                    <option value="1">G</option>
+                                    <option value="2">PG</option>
+                                    <option value="3">PG-13</option>
+                                    <option value="4">R</option> 
+                                    <option value="5">NC-17</option> 
+                            </select>    
+                     </div>
+              </div>
+              <br/>
+              <br/>
+              <br/>
+              <div class="form-group">
+                  <label for="editNotes" class="col-md-4 control-label" style="font-size: 18pt">Notes:</label>
+                  <textarea id="editNotes" class="col-md-8 form-control" placeholder="Use this area to record notes about this title"></textarea>
+              </div>
+              
+              <div class ="form-group">
+                   
+                  <button class="btn btn-info" type="button" id="editCancelButton">Cancel</button>
+                  <button class="btn btn-warning" type="button" id=confirmEditButton>Save changes</button>
+              </div>
+            </form>
+        </div>
+        <div id="SearchResultsContainer" style="display:none" class= "">
+            
+            <div id="SearchResults"></div>
+            <br/>
+            <br/>
+            <div class="row">
+                <div class="col=xs-4"></div>
+                <div class="col=xs-4">
+                    <button type="button" class= "btn btn-primary" id="exitSearchButton">Return to main</button>
+                </div>
+                <div class="col=xs-4"></div>
+            </div>
+        </div>
+
+    
+    
+
+
+
+
+
+
+
+
+        <script src="C:\repos\chris-williams-individual-work\DVDLibrary1020\DVDLibrary2\javascript\jquery-2.2.4.min.js"></script>
+        <script src="C:\repos\chris-williams-individual-work\DVDLibrary1020\DVDLibrary2\javascript\bootstrap.min.js"></script>
+        <script src="C:\repos\chris-williams-individual-work\DVDLibrary1020\DVDLibrary2\javascript\home.js"></script>
+     
+ </body>
+</html>

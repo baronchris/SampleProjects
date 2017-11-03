@@ -1,0 +1,101 @@
+<DOCTYPE HTML>
+    <HTML>
+        <head>
+            <title>DNA Sequence analysis Mk1.0</title>
+            <script type="text/javascript" src="reverseComplementV3.js"></script>
+            <link href ="bootstraprest2.css" rel="stylesheet" type="text/css"/>
+            <style>
+                h1{
+                    text-align: center;
+                    font-weight: bold;
+                }
+                input{
+                     background-color: lightgray;
+                }
+                table, th, td{
+                    border-collapse: collapse;
+                    border: solid black 1px;
+                    text-align: center;
+                }
+                .container{
+                    width: auto;
+                }
+                .rowID{
+                    width: 15%;
+                }
+            </style>
+        </head>
+        <body onload="info()">
+            <h1>DNA sequence analysis</h1>
+            <div class="container" id="inputHolder" style="text-align: center">
+                <form name="sequencesubmit" onreset="resetForm();" 
+                onsubmit="return Complementfinder();" class="form-inline">
+                <div class="form-group">
+                        <label for="initSequence">Query Sequence</label>
+                        <input type="text" class="form-control" id="initSequence">
+                </div>
+                 <button type="submit" id="submitButton" class="btn btn-default">Submit</button>
+                <button type="reset" id="resetButton" class="btn">Reset</button>
+                </form>
+            </div>
+            <div class="container" id="resultsHolder" style="display: none">  <!--table seemed like a good idea at the time!-->
+                <table id="resultSequence" style="width:50%">
+                    <tr>
+                    <th colspan="2"> Results</th>
+                    </tr>
+                    <tr> 
+                        <td class="rowID">Sequence length</td>
+                        <td><span id="seqLength"> </span></td>
+                    </tr>
+                    <tr>
+                        <td class="rowID">% A</td>
+                        <td><span id="Aprev">  </span></td>
+                    </tr>
+                    <tr>
+                        <td class="rowID">% T</td>
+                        <td><span id="Tprev">  </span></td>
+                    </tr>
+                    <tr>
+                        <td class="rowID">% C</td>
+                        <td><span id="Cprev">  </span></td>
+                    </tr>
+                    <tr>
+                        <td class="rowID">% G</td>
+                        <td><span id="Gprev">  </span></td>
+                    </tr>
+                    <tr>
+                        <td class="rowID">% TSS (base number)</td>
+                        <td><span id="TSSloc">  </span></td>
+                    </tr>
+                    <tr>
+                        <td class="rowID"> stop codons in frame (TAG, TAA, TGA)</td>
+                        <td><span id="stopCodonLoc">  </span></td>
+                    </tr>
+                    <tr>
+                        <td class="rowID">ORF length</td>
+                        <td><span id="ORFSize">  </span></td>
+                    </tr>
+                </table>
+            <br/>
+            <h3 style="text-align:center; background-color:lightgray">Initial sequence</h3>
+            <div id="longinput" class="outputDiv" style="background-color: lightgray; text-align: center">
+            </div>
+            <hr/>
+            <h3 style="text-align:center">Reverse complement</h3>
+            <div id="longResult" class="outputDiv" style="text-align: center">
+            </div>
+            <hr/>
+            <h3 style="text-align:center">Open reading frame</h3>
+            <div id="ORF" class="outputDiv" style="text-align: center; background-color:aliceblue">
+            </div>
+            <hr/>
+            <h3 style="text-align:center ; background-color:lightgray">mRNA transcript</h3>
+            <div id="mRNAResult" class="outputDiv" style="background-color: lightgray; text-align: center">
+            </div>
+            </div>
+        </body>
+    </HTML>
+
+
+
+            

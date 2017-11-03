@@ -1,0 +1,46 @@
+Quantum Dissipation Matrix , 31.39 , 0.58
+Peanut Shells , 3.63 , -3.30
+Negative Isolinear Control Cell , 18.15 , 2.02
+Particle Deflector Grid , 48.76 , 5.32
+Molten Lava , 1077.09 , 53.90
+Reserve Axial Dissipation Inverter , 0.00 , 3.70
+Central Frequency Conduit , 24.89 , 0.50
+Modular Polarization Cell , 8.35 , 0.00
+Negative Transference Index , 18.41 , 3.99
+Modular Inertial Replication Scanner , 9.32 , 3.63
+Duotronic Phase Coil , 62.56 , 3.12
+Subspace Transference Cell , 73.25 , 2.61
+Starboard Duotronic Transition Multiplexer , 20.41 , 4.39
+Active Dissipation Actuator , 30.77 , 1.03
+Dandelion Fluff , 5.06 , 1.77
+Bioneural Degeneration Sensor , 24.20 , 3.63
+Rose Petals , 245.63 , 1.33
+Negative Control Compensator , 27.95 , 1.33
+Negative Polarization Grid , 22.31 , 2.89
+Subspace Phase Circuit , 33.28 , 1.21
+Negative Flux Conduit , 46.07 , 3.30
+Starboard Molecular Transference Grid , 38.07 , 2.66
+Gravitronic Polarization Sequencer , 7.82 , 1.99
+Universal Degeneration Emitter , 37.27 , 4.27
+Holographic Variance Sensor , 37.49 , 1.83
+Burlap , 6.60 , 0.00
+Secondary Transition Regulator , 43.19 , 4.39
+Holographic Transition Multiplexer , 62.56 , 2.42
+Duotronic Interference Actuator , 39.93 , 1.21
+Magnetic Confinement Injector , 13.18 , 4.40
+Modular Transition Modulator , 53.88 , 1.21
+Inertial Transference Modulator , 39.59 , 0.00
+Dynamic Resonance Buffer , 24.89 , 5.43
+Universal Gravitronic Dissipation Node , 20.42 , 5.15
+Primary Flux Matrix , 16.42 , 0.00
+Auxiliary Transition Buffer , 41.06 , 5.89
+Inertial Control Modulator , 46.44 , 0.68
+Duotronic Field Transducer , 24.89 , 4.39
+Forward Ion Pulse Capacitor , 1.32 , 2.20
+Quantum Replication System , 18.15 , 3.63
+Active Transition Buffer , 52.00 , 2.20
+Marmite , -3.25 , 3.63
+Modular Holographic Interference Drive , 31.21 , 1.01
+Secondary Polarization Capacitor , 36.30 , 3.27
+Bioneural Polarization Coil , 36.10 , 5.31
+Tachyon Frequency Matrix , 56.87 , 1.00

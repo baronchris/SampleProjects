@@ -1,0 +1,29 @@
+DS , Dysley Stronghold , 27.82
+FLQ , The Fortress of the Lich Queen , 10.65
+PK , Peley Keep , 16.50
+WC , Waleah Castle , 31.46
+HK , Hafeld Keep , 42.83
+TC , Tradun Castle , 34.49
+FG , The Fortress of Gama , 36.86
+BVD , The Bastion of the Vampire Duke , 2.00
+TDW , The Tower of the Demon Warlord , 36.00
+FK , Fellfen Keep , 53.75
+PK , Pawic Keep , -3.42
+RK , Reyny Keep , 11.87
+LO , The Lost Sanctum of Woe , 32.10
+TG , The Tomb of Gothmog of Udun , 31.46
+FL , The Forsaken Delve of Lord Greywulf , 44.77
+BZ , The Black Barrow of Zago the Possessed , 45.98
+SS , The Secret Shrine of the Gargoyle Count , 4.30
+DH , The Dread Hive of Illfang the Kobold Lord , 21.26
+DC , The Dark Caverns of Woe , 22.53
+CJ , The Chuallanto Jungle , 21.48
+SD , The Shadow Downs , 36.61
+FN , The Fen of the Necromancer , 37.27
+GO , Grove Farthing , 35.13
+AD , Archfane District , 5.85
+LF , Lordsgate Farthing , 26.40
+LE , The Lewd King , 16.26
+DN , The Dancing Minstrel , 40.80
+WA , The Warrior and Flagon , 5.18
+CR , The Cracked Chalice , 2.46

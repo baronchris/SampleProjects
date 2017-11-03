@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DVDLibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DVD">
+          <Key>
+            <PropertyRef Name="DVDID" />
+          </Key>
+          <Property Name="DVDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Director" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RatingID" Type="int" Nullable="false" />
+          <Property Name="realeaseYear" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notes">
+          <Key>
+            <PropertyRef Name="NoteID" />
+          </Key>
+          <Property Name="DVDID" Type="int" Nullable="false" />
+          <Property Name="NoteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Ratings">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RatingName" Type="nvarchar" MaxLength="8" />
+        </EntityType>
+        <Association Name="FK__DVD__RatingID__5070F446">
+          <End Role="Ratings" Type="Self.Ratings" Multiplicity="1" />
+          <End Role="DVD" Type="Self.DVD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ratings">
+              <PropertyRef Name="RatingID" />
+            </Principal>
+            <Dependent Role="DVD">
+              <PropertyRef Name="RatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notes__DVDID__534D60F1">
+          <End Role="DVD" Type="Self.DVD" Multiplicity="1" />
+          <End Role="Notes" Type="Self.Notes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DVD">
+              <PropertyRef Name="DVDID" />
+            </Principal>
+            <Dependent Role="Notes">
+              <PropertyRef Name="DVDID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetDVDsbyDirector" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Director" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetDVDsByTitle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="title" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetDVDsByYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="realeaseyear" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DVDLibraryModelStoreContainer">
+          <EntitySet Name="DVD" EntityType="Self.DVD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notes" EntityType="Self.Notes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ratings" EntityType="Self.Ratings" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__DVD__RatingID__5070F446" Association="Self.FK__DVD__RatingID__5070F446">
+            <End Role="Ratings" EntitySet="Ratings" />
+            <End Role="DVD" EntitySet="DVD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notes__DVDID__534D60F1" Association="Self.FK__Notes__DVDID__534D60F1">
+            <End Role="DVD" EntitySet="DVD" />
+            <End Role="Notes" EntitySet="Notes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DVDLibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DVD">
+          <Key>
+            <PropertyRef Name="DVDID" />
+          </Key>
+          <Property Name="DVDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Director" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RatingID" Type="Int32" Nullable="false" />
+          <Property Name="realeaseYear" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rating" Relationship="Self.FK__DVD__RatingID__5070F446" FromRole="DVD" ToRole="Ratings" />
+          <NavigationProperty Name="Notes" Relationship="Self.FK__Notes__DVDID__534D60F1" FromRole="DVD" ToRole="Notes" />
+        </EntityType>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="NoteID" />
+          </Key>
+          <Property Name="DVDID" Type="Int32" Nullable="false" />
+          <Property Name="NoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DVD" Relationship="Self.FK__Notes__DVDID__534D60F1" FromRole="Notes" ToRole="DVD" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="RatingID" />
+          </Key>
+          <Property Name="RatingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RatingName" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DVDs" Relationship="Self.FK__DVD__RatingID__5070F446" FromRole="Ratings" ToRole="DVD" />
+        </EntityType>
+        <Association Name="FK__DVD__RatingID__5070F446">
+          <End Role="Ratings" Type="Self.Rating" Multiplicity="1" />
+          <End Role="DVD" Type="Self.DVD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ratings">
+              <PropertyRef Name="RatingID" />
+            </Principal>
+            <Dependent Role="DVD">
+              <PropertyRef Name="RatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notes__DVDID__534D60F1">
+          <End Role="DVD" Type="Self.DVD" Multiplicity="1" />
+          <End Role="Notes" Type="Self.Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DVD">
+              <PropertyRef Name="DVDID" />
+            </Principal>
+            <Dependent Role="Notes">
+              <PropertyRef Name="DVDID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DVDLibraryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DVDs" EntityType="Self.DVD" />
+          <EntitySet Name="Notes" EntityType="Self.Note" />
+          <EntitySet Name="Ratings" EntityType="Self.Rating" />
+          <AssociationSet Name="FK__DVD__RatingID__5070F446" Association="Self.FK__DVD__RatingID__5070F446">
+            <End Role="Ratings" EntitySet="Ratings" />
+            <End Role="DVD" EntitySet="DVDs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notes__DVDID__534D60F1" Association="Self.FK__Notes__DVDID__534D60F1">
+            <End Role="DVD" EntitySet="DVDs" />
+            <End Role="Notes" EntitySet="Notes" />
+          </AssociationSet>
+          <FunctionImport Name="GetDVDsbyDirector" ReturnType="Collection(DVDLibraryModel.GetDVDsbyDirector_Result)">
+            <Parameter Name="Director" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetDVDsByTitle" ReturnType="Collection(DVDLibraryModel.GetDVDsByTitle_Result)">
+            <Parameter Name="title" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetDVDsByYear" ReturnType="Collection(DVDLibraryModel.GetDVDsByYear_Result)">
+            <Parameter Name="realeaseyear" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetDVDsbyDirector1" EntitySet="DVDs" ReturnType="Collection(DVDLibraryModel.DVD)">
+            <Parameter Name="Director" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetDVDsbyDirector_Result">
+          <Property Type="Int32" Name="DVDID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="realeaseYear" Nullable="false" />
+          <Property Type="String" Name="Director" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="RatingID" Nullable="false" />
+          <Property Type="String" Name="RatingName" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="GetDVDsByTitle_Result">
+          <Property Type="Int32" Name="DVDID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="realeaseYear" Nullable="false" />
+          <Property Type="String" Name="Director" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="RatingID" Nullable="false" />
+          <Property Type="String" Name="RatingName" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="GetDVDsByYear_Result">
+          <Property Type="Int32" Name="DVDID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="realeaseYear" Nullable="false" />
+          <Property Type="String" Name="Director" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="RatingID" Nullable="false" />
+          <Property Type="String" Name="RatingName" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="Note" Nullable="true" MaxLength="500" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DVDLibraryModelStoreContainer" CdmEntityContainer="DVDLibraryEntities">
+          <EntitySetMapping Name="DVDs">
+            <EntityTypeMapping TypeName="DVDLibraryModel.DVD">
+              <MappingFragment StoreEntitySet="DVD">
+                <ScalarProperty Name="DVDID" ColumnName="DVDID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+                <ScalarProperty Name="realeaseYear" ColumnName="realeaseYear" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notes">
+            <EntityTypeMapping TypeName="DVDLibraryModel.Note">
+              <MappingFragment StoreEntitySet="Notes">
+                <ScalarProperty Name="DVDID" ColumnName="DVDID" />
+                <ScalarProperty Name="NoteID" ColumnName="NoteID" />
+                <ScalarProperty Name="Notes" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="DVDLibraryModel.Rating">
+              <MappingFragment StoreEntitySet="Ratings">
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+                <ScalarProperty Name="RatingName" ColumnName="RatingName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetDVDsbyDirector" FunctionName="DVDLibraryModel.Store.GetDVDsbyDirector">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DVDLibraryModel.GetDVDsbyDirector_Result">
+                <ScalarProperty Name="DVDID" ColumnName="DVDID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="realeaseYear" ColumnName="realeaseYear" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+                <ScalarProperty Name="RatingName" ColumnName="RatingName" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDVDsByTitle" FunctionName="DVDLibraryModel.Store.GetDVDsByTitle">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DVDLibraryModel.GetDVDsByTitle_Result">
+                <ScalarProperty Name="DVDID" ColumnName="DVDID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="realeaseYear" ColumnName="realeaseYear" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+                <ScalarProperty Name="RatingName" ColumnName="RatingName" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDVDsByYear" FunctionName="DVDLibraryModel.Store.GetDVDsByYear">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DVDLibraryModel.GetDVDsByYear_Result">
+                <ScalarProperty Name="DVDID" ColumnName="DVDID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="realeaseYear" ColumnName="realeaseYear" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+                <ScalarProperty Name="RatingName" ColumnName="RatingName" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDVDsbyDirector1" FunctionName="DVDLibraryModel.Store.GetDVDsbyDirector" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

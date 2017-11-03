@@ -1,0 +1,14 @@
+IN,Indiana,23.00
+MO,Missouri,5.00
+MD,Maryland,12.00
+MN,Minnesota,0.00
+VI,Virginia,15.74
+VT,Vermont,15.25
+MT,Montana,21.00
+HI,Hawaii,6.00
+NH,New Hampshire,18.00
+MI,Michigan,5.47
+PR,Puerto Rico,14.00
+PW,Palau,10.85
+GU,Guam,23.20
+AS,American Samoa,8.00
