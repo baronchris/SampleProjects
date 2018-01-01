@@ -46,5 +46,15 @@ namespace LibraryTest
             List<Author> authors = repo.GetAuthorsByBook(bookid);
             Assert.AreEqual(expected, authors.Count);
         }
+        [Test]
+        [TestCase(37,22)]
+        [TestCase(169, 6)]
+        [TestCase(23, 1)]
+        public void CanGetBooksByAuthor(int AuthorID, int expected)
+        {
+            BookRepoAdo repo = new BookRepoAdo();
+            List<Book> books = repo.GetBooksByAuthor(AuthorID);
+            Assert.AreEqual(expected, books.Count);
+        }
     }
 }

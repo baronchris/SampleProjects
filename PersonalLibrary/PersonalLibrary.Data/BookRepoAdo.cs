@@ -155,7 +155,7 @@ namespace PersonalLibrary.Data
                         current.BookID = (int)dr["BookID"];
                         current.Title = dr["Title"].ToString();
                         current.ISBN = dr["ISBN"].ToString();
-                        current.Publisher = dr["Publisher"].ToString() ?? "Unknown";//null collalescing opperator
+                      //  current.Publisher = dr["Publisher"].ToString() ?? "Unknown";//null collalescing opperator
                         books.Add(current);
                     }
                 }
