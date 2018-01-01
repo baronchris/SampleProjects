@@ -93,5 +93,74 @@ namespace PersonalLibrary.Data
             }
             return Authors;
         }
+        public List<Book> LoadAllBooks()
+        {
+            List<Book> Books = new List<Book>();
+            using (SqlConnection cn = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("GetAllBooks", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cn.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Book current = new Book();
+                        current.BookID = (int)dr["BookID"];
+                        current.Title = dr["Title"].ToString();
+                        current.ISBN = dr["ISBN"].ToString();
+                        Books.Add(current);
+                    }
+                }
+               
+            }
+            return Books;
+        }
+        public List<Author>GetAuthorsByBook(int BookID)
+        {
+            List<Author> authors = new List<Author>();
+            using(SqlConnection cn = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("GetAuthorsByBook", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@BookID", BookID);
+                cn.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Author current = new Author();
+                        current.AuthorID = (int)dr["AuthorID"];
+                        current.AuthorName = dr["AuthorName"].ToString();
+                        authors.Add(current);
+                    }
+                }
+            }
+            return authors;
+        }
+        public List<Book>GetBooksByAuthor(int authorID)
+        {
+            List<Book> books = new List<Book>();
+            using(SqlConnection cn = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("GetBooksByAuthor", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@AuthorID", authorID);
+                cn.Open();
+                using(SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Book current = new Book();
+                        current.BookID = (int)dr["BookID"];
+                        current.Title = dr["Title"].ToString();
+                        current.ISBN = dr["ISBN"].ToString();
+                        current.Publisher = dr["Publisher"].ToString() ?? "Unknown";//null collalescing opperator
+                        books.Add(current);
+                    }
+                }
+            }
+            return books;
+        }
     }
 }

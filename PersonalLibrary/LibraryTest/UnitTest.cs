@@ -20,14 +20,31 @@ namespace LibraryTest
             Assert.IsNotEmpty(Books);
         }
 
+        //[Test]
+        //public void CanPopulateDatabase()
+        //{
+        //    List<Book> Books = DataImport.ImportCSV();
+        //    BookRepoAdo repo = new BookRepoAdo();
+        //    repo.PopulateDatabase(Books);
+        //    Assert.IsNotEmpty(Books);
+        //}
+
         [Test]
-        public void CanPopulateDatabase()
+        public void CanGetAllBooks()
         {
-            List<Book> Books = DataImport.ImportCSV();
             BookRepoAdo repo = new BookRepoAdo();
-            repo.PopulateDatabase(Books);
+            List<Book> Books = repo.LoadAllBooks();
             Assert.IsNotEmpty(Books);
         }
-
+        [Test]
+        [TestCase (999, 10)]
+        [TestCase (106, 5)]
+        [TestCase(672, 1)]
+        public void CanGetAuthorsforbook(int bookid, int expected)
+        {
+            BookRepoAdo repo = new BookRepoAdo();
+            List<Author> authors = repo.GetAuthorsByBook(bookid);
+            Assert.AreEqual(expected, authors.Count);
+        }
     }
 }
