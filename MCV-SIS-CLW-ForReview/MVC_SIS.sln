@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC_SIS", "MVC_SIS\MVC_SIS.csproj", "{8D5E3B1D-FFD2-430D-A25F-3FC49F3EBBBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIS-Test", "SIS-Test\SIS-Test.csproj", "{533BA141-C83D-4266-8A2A-CA839C03B7CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D5E3B1D-FFD2-430D-A25F-3FC49F3EBBBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D5E3B1D-FFD2-430D-A25F-3FC49F3EBBBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D5E3B1D-FFD2-430D-A25F-3FC49F3EBBBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D5E3B1D-FFD2-430D-A25F-3FC49F3EBBBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{533BA141-C83D-4266-8A2A-CA839C03B7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{533BA141-C83D-4266-8A2A-CA839C03B7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{533BA141-C83D-4266-8A2A-CA839C03B7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{533BA141-C83D-4266-8A2A-CA839C03B7CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC125811-05CD-496C-B3A5-CE38EDE037AB}
+	EndGlobalSection
+EndGlobal
