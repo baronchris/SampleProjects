@@ -27,7 +27,13 @@ namespace ArmyPlannerData
     {
         public string FactionName { get; set; }
         public string Race { get; set; }
-        public FactionDetails; 
+
+        public FactionDetails GetFactionDetails(string factionname)
+        {
+            FactionDetails fd = new FactionDetails();
+            //stuff
+            return fd;
+        } 
             
 
     }
