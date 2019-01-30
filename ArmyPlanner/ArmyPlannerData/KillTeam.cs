@@ -8,8 +8,9 @@ namespace ArmyPlannerData
     {
         public string Player { get; set; }
         public string Faction { get; set; }
+        public string TeamName { get; set; }
         public string Mission { get; set; }
-        public string quirk { get; set; }
-        //list<characters> 
+        public string Quirk { get; set; }
+        public List<KillTeamCharacter> Team { get; set; }
     }
 }
