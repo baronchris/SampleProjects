@@ -4,7 +4,12 @@ using System.Text;
 
 namespace ArmyPlannerData
 {
-    class Characters
+    public class Characters
     {
+        public string ModelType { get; set; }
+        public string Specialization { get; set; }
+        public string Demeanor {get; set;}
+        //list wargear
+        //points
     }
 }

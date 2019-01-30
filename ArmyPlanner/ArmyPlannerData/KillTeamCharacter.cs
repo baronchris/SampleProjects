@@ -12,9 +12,22 @@ namespace ArmyPlannerData
         public List<Wargear> gear { get; set; }
         public bool FireTeam { get; set; }
         public bool Convalescent { get; set; }
-        
+        public int ModelTypeID { get; set; }
+
         //constructor - if fireteam null get speciality
+        public KillTeamCharacter(string name, string FactionName)
+        {
+
+        }
+
+        private StatLine GetLine(int ModelTypeID)
+        {
+            StatLine stats = new StatLine();
+
+            return stats;
+        }
     }
+    
 
     public class StatLine
     {
