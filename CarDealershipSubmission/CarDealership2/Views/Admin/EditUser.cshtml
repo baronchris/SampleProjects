@@ -1,0 +1,39 @@
+﻿@model CarDealership2.Models.UserAdminVM
+
+@{
+    ViewBag.Title = "EditUser";
+}
+
+<h2>Edit User @Model.NewUser.UserName</h2>
+
+<div class=" container col-xs-12" style="border:solid; color:black">
+<span class="text-danger"> @Html.ValidationSummary() </span>
+
+@using (Html.BeginForm("EditUser", "admin", FormMethod.Post))
+            {
+    <div class="form-group col-xs-5">
+        @Html.HiddenFor(m => m.NewUser.EmployeeID)
+        @Html.HiddenFor(m => m.OldRoleName)
+        @Html.LabelFor(m => m.NewUser.Firstname)
+        @Html.TextBoxFor(m => m.NewUser.Firstname, new { @class = "form-control", placeholder = "first name" })
+    </div>
+                <div class="form-group col-xs-5">
+                    @Html.LabelFor(m => m.NewUser.Lastname)
+                    @Html.TextBoxFor(m => m.NewUser.Lastname, new { @class = "form-control", placeholder = "last name" })
+                </div>
+                <div class="form-group col-xs-5">
+                    @Html.LabelFor(m => m.NewUser.Email)
+                    @Html.TextBoxFor(m => m.NewUser.Email, new { @class = "form-control", placeholder = "Username@CMOTCars.com" })
+                </div>
+    <div class="form-group col-xs-5">
+        @Html.LabelFor(m => m.NewUser.RoleName)
+        @Html.DropDownListFor(m => m.NewUser.RoleName, Model.RoleChoice, "-Roles-", new { @class = "form-control" })
+    </div>
+
+                <div class="form-group col-xs-5">
+                    <br />
+                    <button type="submit" class="btn btn-info">Save Edits</button>
+                </div>
+}
+   </div>
+

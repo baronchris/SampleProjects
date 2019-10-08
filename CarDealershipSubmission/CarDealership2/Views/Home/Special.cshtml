@@ -1,0 +1,108 @@
+﻿@model CarDealership2.Models.PromotionsVM
+
+@{
+    ViewBag.Title = "Special";
+}
+
+<h2>Specials</h2>
+<div class="container">
+    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+    {
+        <div class="col-xs-10" style="border:solid;color:black;">
+            @using (@Html.BeginForm("AddPromo", "Home", FormMethod.Post))
+            {
+              <span class="text-danger">  @Html.ValidationSummary() </span>
+                <div class="form-group col-xs-10">
+                    @Html.LabelFor(m=>m.NewPromo.PromotionName)
+                    @Html.TextBoxFor(m=>m.NewPromo.PromotionName, new {@Value="" })
+                    <span class="text-danger">  @Html.ValidationMessageFor(m => m.NewPromo.PromotionName)</span>
+                </div>
+                <div class="form-group col-xs-10">
+                    @Html.LabelFor(m => m.NewPromo.Description)
+                    @Html.TextAreaFor(m => m.NewPromo.Description, new {Value = "" } )
+                    <span class="text-danger"> @Html.ValidationMessageFor(m => m.NewPromo.Description)</span>
+                </div>
+                <div class="form-group col-xs-10">
+                    @Html.LabelFor(m => m.NewPromo.FlatDiscount)
+                    @Html.TextBoxFor(m => m.NewPromo.FlatDiscount, new {@class="form-control", type="number", step="0.01",Value="0" })
+                </div>
+                <div class="form-group col-xs-10">
+                    @Html.LabelFor(m => m.NewPromo.PercentDiscount)
+                    @Html.TextBoxFor(m => m.NewPromo.PercentDiscount, new { @class = "form-control", type = "number", Value = "0" })
+                </div>
+                <div class="form-group col-xs-6">
+                    <button class="btn btn-success" type="submit">Add Promotion</button>
+                </div>
+            }
+        </div>
+
+        foreach (var promo in Model.Allpromotions)
+        {
+       <div class="col-xs-8" style="border:solid; color:black">
+           @if (promo.IsCanceled == true)
+           {
+               <h1 class="text-danger text-center">CANCELED!</h1>
+           }
+           <h1 class="text-center">@promo.PromotionName</h1>
+           <h2 class="text-center">@promo.Description</h2>
+           @if (promo.StartDate != null)
+           {
+               <h3>Valid From @promo.StartDate.ToString().Substring(0, 10)</h3>
+           }
+           @if (promo.StartDate != null)
+           {
+               <h3>Expires on @promo.EndDate.ToString().Substring(0, 10) </h3>
+                       }
+                       @if(promo.FlatDiscount>0&& promo.PercentDiscount > 0)
+                       {
+                           <H3>Take @promo.PercentDiscount % off*</H3>
+                           <h5> up to a maximum savings of $@promo.FlatDiscount</h5>
+                       }
+                       @if(promo.FlatDiscount>0 && promo.PercentDiscount == 0)
+                       {
+                           <h3>Take $@promo.FlatDiscount off of the final price</h3>
+                       }
+                       @if (promo.FlatDiscount == 0 && promo.PercentDiscount> 0)
+                       {
+                           <h3>Take @promo.PercentDiscount% off of the final price</h3>
+                       }
+                       <div class="col-xs-6">
+                               @Html.ActionLink("Delete This promo","deletePromo","home",new {ID= promo.PromotionID} ,new { @class = "btn btn-danger" })
+                       </div>
+                   </div>
+                    }
+
+                }
+                @if (!User.Identity.IsAuthenticated || (User.Identity.IsAuthenticated && User.IsInRole("Sales")))
+                {
+                    foreach (var promo in Model.ValidPromotions)
+                    {
+                        <div class="col-xs-8" style="border:solid; color:black">
+                            <h1 class="text-center">@promo.PromotionName</h1>
+                            <h2 class="text-center">@promo.Description</h2>
+                            @if (promo.StartDate != null)
+                            {
+                                <h3>Valid From @promo.StartDate.ToString().Substring(0,10) @* @DateTime.Parse(promo.StartDate.ToString()).ToString("mm/dd/yyyy") *@</h3>
+                }
+                @if (promo.StartDate != null)
+                {
+                    <h3>Expires on @promo.EndDate.ToString().Substring(0,10) @* @DateTime.Parse(promo.EndDate.ToString()).ToString("mm/dd/yyyy")*@</h3>
+                }
+                @if (promo.FlatDiscount > 0 && promo.PercentDiscount > 0)
+                {
+                    <H3>Take @promo.PercentDiscount % off*</H3>
+                    <h5> up to a maximum savings of $@promo.FlatDiscount</h5>
+                }
+                @if (promo.FlatDiscount > 0 && promo.PercentDiscount == 0)
+                {
+                    <h3>Take $@promo.FlatDiscount off of the final price</h3>
+                }
+                @if (promo.FlatDiscount == 0 && promo.PercentDiscount > 0)
+                {
+                    <h3>Take @promo.PercentDiscount% off of the final price</h3>
+                } 
+            </div>
+        }
+     }
+</div>
+

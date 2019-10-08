@@ -1,0 +1,48 @@
+﻿@model CarDealership2.Models.SalesIndexVM
+
+@{
+    ViewBag.Title = "SaleIndex";
+}
+
+<h2>Cars for sale</h2>
+@foreach (var vehicle in Model.Inventory)
+{
+  
+        <div class="container" style="border:solid; color:black">
+            <div>
+                <h3>@vehicle.ModelYear @vehicle.MakeName  @vehicle.ModelName </h3>
+                <div class="col-xs-2" id="imageDiv" style="padding: 5px">
+                </div>
+                <div class="col-xs-4">
+                    <p>Body Style: @vehicle.BodyStyle </p> <p>Trans: @vehicle.TransmissionName </p> <p> Color: @vehicle.ColorName </p>
+                </div>
+                <div class="col-xs-4">
+                    <p>Interior: @vehicle.InteriorDescription </p>
+                    @if (vehicle.IsNew == true)
+                {
+                        <p>Mileage: New</p>
+                    }
+                    @if (vehicle.IsNew == false)
+                {
+                        <p>Mileage: @vehicle.Mileage  </p>
+                    }
+                    <p>VIN: @vehicle.VIN </p>
+                </div>
+                <div class="col-xs-2"><p>Sale Price: @vehicle.Saleprice </p> <p>MSRP: @vehicle.MSRP </p> 
+                </div>
+            </div>
+
+        <div>
+            <div class="col-xs-10"><p style="text-align:center; font-size:14pt">Description: @vehicle.CarDescription </p></div>
+            <div class="col-xs-2">
+                @Html.ActionLink("Sell car","SellCar", "Sales",new { CarID=vehicle.CarID}, new { @class = "btn btn-info" })
+            </div>
+        </div>
+        </div>
+    
+              
+        }
+
+
+
+

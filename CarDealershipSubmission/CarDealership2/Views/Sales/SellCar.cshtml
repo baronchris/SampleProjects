@@ -1,0 +1,111 @@
+﻿@model CarDealership2.Models.SellCarVM
+
+@{
+    ViewBag.Title = "SellCar";
+}
+
+<h2>Sell Car</h2>
+<div class="container" style="border:solid; color:black">
+    <h3> @Model.CarSold.Car.ModelYear @Model.CarSold.Car.MakeName @Model.CarSold.Car.ModelName</h3>
+
+    <div class="col-xs-3" id="imageDiv" style="padding: 5px">
+        <img src="~/Uploads/@Model.CarSold.Car.ImageFileName" , alt="@Model.CarSold.Car.ImageFileName" style="height:150px; "overflow: hidden;" />
+    </div>
+    <div class="col-xs-8">
+        <div class="col-xs-5">
+            <p>Body Style: @Model.CarSold.Car.BodyStyle</p>
+            <p>Trans: @Model.CarSold.Car.TransmissionName</p>
+            <p> Color: @Model.CarSold.Car.ColorName</p>
+        </div>
+        <div class="col-xs-5">
+            <p>Interior: @Model.CarSold.Car.InteriorDescription </p>
+            @if (Model.CarSold.Car.IsNew == true)
+            {
+                <p>Mileage: New</p>
+            }
+            @if (!Model.CarSold.Car.IsNew)
+            {
+                <p>Mileage: @Model.CarSold.Car.Mileage </p>
+            }
+            <p>VIN: @Model.CarSold.Car.VIN</p>
+        </div>
+        
+        <div class="col-xs-5">Sale Price: $@Model.CarSold.Car.Saleprice</div><div class="col-xs-5"> MSRP: $@Model.CarSold.Car.MSRP</div>
+            
+        
+        <br />
+        <br />
+        <div class="col-xs-12">
+            <br />
+            <p>Description: @Model.CarSold.Car.CarDescription</p>
+        </div>
+    </div>
+</div>
+<br/>
+
+<div class="container">
+    @using (Html.BeginForm("SellCar", "Sales", FormMethod.Post))
+    {
+        @Html.HiddenFor(m=>m.CarSold.Car.CarID)
+        @Html.HiddenFor(m=>m.CarID)
+        @Html.HiddenFor(m=>m.SoldBy)
+    <div class="form-group col-xs-5">
+       @Html.LabelFor(m=>m.customer.CustomerName)
+       @Html.TextBoxFor(m=>m.customer.CustomerName, new {@class="form-control"})
+    </div>
+    <div class="form-group col-xs-5">
+        @Html.LabelFor(m=>m.customer.Phone)
+        @Html.TextBoxFor(m => m.customer.Phone, new {@class= "form-control", type="tel", placeholder="xxx-xxx-xxxx" })
+    </div>
+
+    <div class="form-group col-xs-12">
+        @Html.LabelFor(m => m.customer.Email)
+        @Html.TextBoxFor(m => m.customer.Email, new { @class = "form-control", type = "email", placeholder = "name@provider.com" })
+    </div>
+
+    <div class="col-xs-12"></div>
+    <Div class="form-group col-xs-5">
+        @Html.LabelFor(m => m.customer.StreetAddress)
+        @Html.TextBoxFor(m => m.customer.StreetAddress, new { @class = "form-control",  placeholder = "address 1" })
+    </Div>
+    <Div class="form-group col-xs-5">
+        @Html.LabelFor(m => m.customer.StreetAddress2)
+        @Html.TextBoxFor(m => m.customer.StreetAddress2, new { @class = "form-control", placeholder = "address 2" })
+    </Div>
+
+    <Div class="form-group col-xs-5">
+        @Html.LabelFor(m=>m.customer.City)
+        @Html.TextBoxFor(m=>m.customer.City, new { @class = "form-control", placeholder = "City" })
+    </Div>
+    
+    <Div class="form-group col-xs-5">
+        @Html.LabelFor(m=>m.customer.StateID)
+        @Html.DropDownListFor(m => m.customer.StateID, Model.States,"-State-",new { @class = "form-control" })
+    </Div>
+    <Div class="form-group col-xs-5">
+        @Html.LabelFor(m => m.customer.Zipcode)
+        @Html.TextBoxFor(m => m.customer.Zipcode, new { @class = "form-control", type="number" })
+    </Div>
+    <br/>
+    <hr/>
+    <Div class="form-group col-xs-5">
+        @Html.LabelFor(m => m.PurchasePrice)
+        @Html.TextBoxFor(m=>m.PurchasePrice, new { @class= "Form-control", type="number", step="0.01"})
+    </Div>
+    <Div class="form-group col-xs-5">
+        @Html.LabelFor(m=>m.PurchaseTypeID)
+        @Html.DropDownListFor(m=>m.PurchaseTypeID, Model.PurchaseTypes, "-Payment-", new {@class="Form-control" })
+    </Div>
+    <div class="form-group" col-xs-4>
+        <button class="btn btn-success" type="submit">Complete Sale</button>
+    </div>
+    }
+    </Div>
+
+
+<script>
+    $(document).ready(function (event)
+    {
+        $("#searchbox").hide();
+    });
+</script>

@@ -1,0 +1,67 @@
+﻿@model CarDealership2.Models.AddEdditMake
+
+@{
+    ViewBag.Title = "AddMake";
+}
+<style>
+table tr:nth-child(even){
+    background: #00ffff
+}
+
+td{
+    border-left:solid 1px black;
+    border-right:solid 1px black;
+}
+
+    tr {
+        border-bottom: solid 1px black;
+        border-top: solid 1px black;
+    }
+</style>
+
+
+
+<h2>Add a New Make</h2>
+<div class="container" style="border:solid; color:black" >
+    <div>
+        <p> </p>
+    </div>
+    <div class="form-group">
+        @using (Html.BeginForm("AddMake", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            <div class="form-group col-xs-4 form-inline">
+                @Html.LabelFor(m => m.MakeToAdd.MakeName)
+                @Html.TextBoxFor(m => m.MakeToAdd.MakeName)
+            </div>
+            <div class="form-group col-xs-3 form-inline">
+            <button type="submit" class="btn btn-info">Save</button>
+            </div>
+        }
+    </div>
+</div>
+<div>
+    <p>     </p>
+</div>
+
+   
+        <table style="border:solid; Border-color: black; padding-left:2px; padding-right:2px">
+            <tbody>
+                <tr>
+                    <Td width="30%">Make</Td>
+                    <td width="30%">Date Added</td>
+                    <td width="30%">Added by</td>
+                </tr>
+                @foreach (var make in Model.MakeList)
+                {
+                    <tr>
+                        <td>@make.MakeName</td>
+                        <td>@make.DateAdded.ToString("MM/dd/yyyy")</td>
+                        <td>@make.AddedBy</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    
+
+
+

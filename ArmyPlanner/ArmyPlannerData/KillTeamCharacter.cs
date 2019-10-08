@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace ArmyPlannerData
 {
@@ -13,9 +14,11 @@ namespace ArmyPlannerData
         public bool FireTeam { get; set; }
         public bool Convalescent { get; set; }
         public int ModelTypeID { get; set; }
-
+        public Specialty Specilism { get; set; }
+        public int ModelPoints { get; set; }
+        public int TotalPoints { get; set; }
         //constructor - if fireteam null get speciality
-        public KillTeamCharacter(string name, string FactionName)
+        public KillTeamCharacter(string name, string FactionName, int modelid, string specialty )
         {
 
         }
@@ -26,6 +29,16 @@ namespace ArmyPlannerData
 
             return stats;
         }
+        private int GetTotalCost()
+        {
+            int cost;
+            cost = this.Specilism.LevelCost + this.ModelPoints;
+            int GearCost = gear.Sum(g => g.Cost);
+            cost += GearCost;
+            return cost;
+
+        }
+
     }
     
 

@@ -1,0 +1,55 @@
+﻿@model CarDealership2.Models.SaleReportVM
+
+@{
+    ViewBag.Title = "SpecifiedSalesReport";
+}
+
+<h2>Sales report for @Model.SelectedUser</h2>
+@if (!string.IsNullOrWhiteSpace(Model.FromDateString))
+{
+    <h2>
+        For Sales period starting on @Model.FromDateString
+    </h2>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ToDateString))
+{
+    <h2>
+        To the date @Model.FromDateString
+    </h2>
+}
+<div class="container col-xs-8" id="total sales">
+    <table style="border:solid; color:black">
+        <tr>
+            <th style="border:solid; color:black; text-align:center; padding:5px">Salesperson</th>
+            <th style="border:solid; color:black; text-align:center; padding:5px" >Vehicles Sold</th>
+            <th style="border:solid; color:black; text-align:center; padding:5px" >$Total sales</th>
+          
+        </tr>
+        @foreach (var report in Model.Reports)
+        {
+            <tr>
+                <td style="border:solid; color:black; text-align:center; padding:5px">@report.UserName</td>
+                <td style="border:solid; color:black; text-align:center; padding:5px">@report.Sales.Count</td>
+                <td style="border:solid; color:black; text-align:center; padding:5px">$ @report.Sales.Sum(s=>s.SalePrice)</td>     
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="col-xs-6">
+    <h2>List of sales</h2>
+    @foreach (var report in Model.Reports)
+    {
+
+        foreach (var sale in report.Sales)
+        {    
+            <div class="col-xs-9">
+            <p>Sale Date: @sale.DateSold.Date<p>
+            <P>Sale Ammount:$ @sale.SalePrice </P>
+            <hr style="Border:solid; color:black" />
+            </div>
+        }
+    }
+</div>
+
+

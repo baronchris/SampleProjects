@@ -1,0 +1,82 @@
+﻿@model CarDealership2.Models.SaleReportVM
+
+@{
+    ViewBag.Title = "Salesreports";
+}
+
+<h2>Sales Reports</h2>
+<div class="container" style="border:solid; color: black; background-color:lightgrey" id="searchbarsales">
+    <h3>Filters</h3>
+    @using (Html.BeginForm("SpecifiedSalesReport", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <div class="col=xs-4 form-group form-horizontal" >
+            @Html.LabelFor(m=>m.SelectedUser)
+            @Html.DropDownListFor(m=>m.SelectedUser, Model.SalesStaff, "-ALL-", new { @class = "Form-control", required="true" })
+        </div>
+        <div class="col=xs-4 form-group form-horizontal" >
+            @Html.LabelFor(m=>m.FromDateString)
+            @Html.TextBoxFor(m=>m.FromDateString, new { @class = "Form-control", placeholder="mm/dd/yyyy" })
+        </div>
+        <div  class="col=xs-4 form-group form-horizontal" >
+            @Html.LabelFor(m=>m.ToDateString)
+            @Html.TextBoxFor(m => m.ToDateString, new { @class = "Form-control", placeholder = "mm/dd/yyyy" })
+        </div>
+        <div class="col-xs-12 form-group">
+            <button class="btn btn-info" type="submit">Search</button>
+        </div>
+    }
+</div>
+<br/>
+<br />
+<div class="container col-xs-7" id="total sales">
+    <h2>Salespeople</h2>
+    <table style="border:solid; color:black">
+        <tr>
+            <th style="border:solid; color:black; text-align:center; padding:5px" >Salesperson</th>
+            <th style="border:solid; color:black; text-align:center; padding:5px">Vehicles Sold</th>
+            <th style="border:solid; color:black; text-align:center; padding:5px">$Total sales</th>
+           
+        </tr>
+        @foreach (var report in Model.Reports)
+        {
+            <tr>
+                <td style="border:solid; color:black; text-align:center; padding:5px" >@report.UserName</td>
+                <td style="border:solid; color:black; text-align:center; padding:5px">@report.TotalCarsSold</td>
+                <td style="border:solid; color:black; text-align:center; padding:5px">$ @report.NetSales</td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="col-xs-5">
+    <h2>Inventory</h2>
+    <table style="border:solid; color:black">
+        <thead>
+            <tr>
+                <th style="border:solid; color:black; text-align:center; padding:5px">Model</th>
+                <th style="border:solid; color:black; text-align:center; padding:5px">Make</th>
+                <th style="border:solid; color:black; text-align:center; padding:5px">Year</th>
+                <th style="border:solid; color:black; text-align:center; padding:5px">In stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var car in Model.InventoryReport)
+            {
+                <tr>
+                    <td style="border:solid; color:black; text-align:center; padding:5px">@car.MakeName</td>
+                    <td style="border:solid; color:black; text-align:center; padding:5px">@car.ModelName</td>
+                    <td style="border:solid; color:black; text-align:center; padding:5px">@car.ModelYear</td>
+                    <td style="border:solid; color:black; text-align:center; padding:5px">@car.InStock</td>
+
+                </tr>
+            }
+        </tbody>
+       
+    </table>
+</div>
+
+<script>
+    $(document).ready(function (event)
+    {
+        $("#searchbox").hide();
+    });
+</script>

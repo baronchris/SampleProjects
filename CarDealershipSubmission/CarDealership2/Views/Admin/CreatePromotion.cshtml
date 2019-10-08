@@ -1,0 +1,48 @@
+﻿@model CarDealership.Data.Promotion
+
+@{
+    ViewBag.Title = "CreatePromotion";
+}
+
+<h2>CreatePromotion</h2>
+<div class="container form-group">
+    @using (Html.BeginForm("CreatePromotion", "admin", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.PromotionName)
+            @Html.TextBoxFor(m => m.PromotionName, new { @class = "Form-control", placeholder = "promo name" })
+        </div>
+        <div class="form-group col-xs-6">
+            @Html.LabelFor(m=>m.StartDate)
+            @Html.TextBoxFor(m=>m.StartDate, new {@class="form-control",type="Date", Placeholder="mm/dd/yyyy", style = "width:80%" })
+        </div>
+        <div class="form-group col-xs-6">
+            @Html.LabelFor(m=>m.EndDate)
+            @Html.TextBoxFor(m=>m.EndDate, new { @class = "form-control",type = "Date", Placeholder = "mm/dd/yyyy", style="width:80%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m=>m.Description)
+            @Html.TextAreaFor(m=>m.Description)
+        </div>
+        <div class="form-group col-xs-6">
+            @Html.LabelFor(m=>m.FlatDiscount)
+            @Html.TextBoxFor(m=>m.FlatDiscount, new {@class="form-control", type="number",step="0.01", style = "width:80%" })
+        </div>
+        <div class="form-group col-xs-6">
+            @Html.LabelFor(m => m.PercentDiscount)
+            @Html.TextBoxFor(m => m.PercentDiscount, new { @class = "form-control", type = "number", step = "1", style = "width:80%" })
+        </div>
+        <div class="form-group col-xs-6">
+            @Html.LabelFor(m=>m.IsForNew)
+            @Html.CheckBoxFor(m=>m.IsForNew)
+        </div>
+        <div class="form-group col-xs-6">
+            @Html.LabelFor(m => m.IsForUsed)
+            @Html.CheckBoxFor(m => m.IsForUsed)
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn success">Save</button>
+        </div>
+    }
+
+        </div>

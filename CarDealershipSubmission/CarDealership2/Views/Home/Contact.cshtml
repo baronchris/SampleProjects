@@ -1,0 +1,34 @@
+﻿@model CarDealership.Data.People.Contact
+
+@{
+    ViewBag.Title = "Contact";
+}
+
+<h2>Contact Us</h2>
+<div class="container">
+    @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+    {
+        <div class="form-group col-xs-8">
+            @Html.LabelFor(m => m.ContactName)
+            @Html.TextBoxFor(m => m.ContactName, new { @class = "form-control" })
+            <span class="text-danger">@Html.ValidationMessageFor(m=>m.ContactName)</span>
+        </div>
+        <div class="form-group col-xs-8">
+            @Html.LabelFor(m => m.Phone)
+            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", type="phone", placeholder="xxx-xxx-xxxx" })
+        </div>
+            <div class="form-group col-xs-8">
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "Email" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.Email)</span>
+            </div>
+            <div class="form-group col-xs-8">
+                @Html.LabelFor(m => m.ContactMessage)
+                @Html.TextAreaFor(m => m.ContactMessage, new { @class = "form-control" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.ContactMessage)</span>
+            </div>
+            <div class="col-xs-8">
+                <button class="btn btn-success">Contact Us</button>
+            </div>
+    }
+        </div>

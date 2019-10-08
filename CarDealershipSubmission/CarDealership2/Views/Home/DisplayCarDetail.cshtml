@@ -1,0 +1,65 @@
+﻿@model CarDealership.Data.CarDetailed
+
+@{
+    ViewBag.Title = "DisplayCarDetail";
+}
+
+
+<h2>Vehicle Details</h2>
+<div class="container" style="border:solid; color:black">
+    <div>
+        <h3> @Model.ModelYear @Model.MakeName @Model.ModelName </h3>
+
+        <div class="col-xs-2" id="imageDiv" style="padding: 5px">
+            <img src="~/Uploads/@Model.ImageFileName" , alt="@Model.ImageFileName" style="height:150px; "overflow: hidden;" />
+        </div>
+        <div class="col-xs-9">
+            <div class="col-xs-4">
+                <p>Body Style: @Model.BodyStyle</p>
+                <p>Trans: @Model.TransmissionName</p>
+                <p> Color: @Model.ColorName</p>
+            </div>
+            <div class="col-xs-4">
+                <p>Interior: @Model.InteriorDescription </p>
+                @if (Model.IsNew == true)
+                {
+                    <p>Mileage: New</p>
+                }
+                @if (!Model.IsNew)
+            {
+                    <p>Mileage: @Model.Mileage </p>
+                }
+                <p>VIN: @Model.VIN</p>
+            </div>
+            <div class="col-xs-4">
+                <p>Sale Price: @Model.Saleprice</p>
+                <p>MSRP: @Model.MSRP</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="col-xs-10">
+            <p style="text-align:center; font-size:14pt">Description: @Model.CarDescription</p>
+        </div>
+        <div class="col-xs-2" style="cursor:pointer">
+            @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+            {
+                @Html.ActionLink("Edit Car", "EditCar", "admin", new { CarID = Model.CarID }, new {@class= "btn btn-info" })
+                
+            }
+            @if (User.Identity.IsAuthenticated && User.IsInRole("sales"))
+            {
+                @Html.ActionLink("Sell Car ", "SellCar", "Sales", new { CarID = Model.CarID }, new { @class = "btn btn-info" })
+                
+            }
+            @if (!User.Identity.IsAuthenticated)
+            {
+                @Html.ActionLink("Contact us", "Contact", "home",null, new { @class = "btn btn-info" })
+                
+            }
+                
+            
+        </div>
+    </div>
+</div>
+

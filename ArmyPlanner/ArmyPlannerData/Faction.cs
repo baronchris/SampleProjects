@@ -25,7 +25,7 @@ namespace ArmyPlannerData
     }
     public class Faction
     {
-        public string FactionName { get; set; }
+        public FactionName factionName{ get; set; }
         public string Race { get; set; }
 
         public FactionDetails GetFactionDetails(string factionname)

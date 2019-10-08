@@ -1,0 +1,27 @@
+﻿@model CarDealership2.Models.IndexVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="container" id="carcontainer" style="width:100%">
+    <h2 style="text-align:center">Welcome to CMOT Dibbler's Really Honest Car DealerShip</h2>
+    @foreach (var car in Model.Featured)
+    {
+        <a href="@Url.Action("DisplayCarDetail", "Home", new {ID =car.CarID })">
+            <div class="col-xs-3" style="height:250px; border:solid; color:black; padding:5px; margin:1px; cursor: pointer; overflow:scroll">
+                <p style="text-align:center; font-size: 20pt">@car.ModelYear @car.MakeName @car.ModelName </p>
+                <p style="text-align:center; font-weight: bold; font-size: 16pt ">$@car.Saleprice</p>
+                <div>
+                    <div class="col-xs-1"></div>
+                    <div style="justify-content:center">
+                        <img src="~/Uploads/@car.ImageFileName" , alt="@car.ImageFileName" style="height:100px;" />
+                    </div>
+                </div>
+            </div>
+        </a>
+    }
+
+</div>
+

@@ -1,0 +1,286 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title CMOT Dibbler's very honest inventory management</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Featured Cars", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })  
+                @Html.ActionLink("New Cars", "New", "Home", new { area=""}, new { @class = "navbar-brand" })
+                @Html.ActionLink("Used Cars", "Used", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Specials", "Promotions", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Contact us", "Contact", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+            <div class="navbar-collapse collapse" >
+                <ul class="nav navbar-nav">
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="width:80%">
+                        <span class="caret">Select Action</span></a>
+                        <ul class="dropdown-menu">
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                            {
+
+                                <li>@Html.ActionLink("Add a make", "AddMake", "admin")</li>
+                                <li>@Html.ActionLink("Add a model", "AddModel", "admin")</li>
+                                <li>@Html.ActionLink("Add a car", "AddCar", "admin") </li>
+                                <li>@Html.ActionLink("User Management", "EmployeeAdmin", "admin")</li>
+                                <li>@Html.ActionLink("See buisness reports", "Salesreports", "admin")</li>
+                            }
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("sales"))
+                            {
+                                <li>@Html.ActionLink("Make a sale", "", "sales")</li>
+                            }
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li>@Html.ActionLink("Change Password", "ChangePassword", "admin", new { UserName = User.Identity.GetUserName() }, null)</li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            }
+            @Html.Partial("_Login")
+        </div>
+           
+       
+    </div>
+
+
+    <br/>
+    <br />
+
+    <div class="container" id="searchbox" style="border:solid; color:black">
+        <br/>
+        <form class="form-horizontal">
+            <div class=" form-group col-xs-2">
+                <input for="currentyear", type="hidden" value="@DateTime.Now.AddYears(2).Year.ToString("yyyy")" id="currentyear" />
+                <label for="quiksearchterm">Quick Search</label>
+                <input id="quiksearchterm" class="form-control" type="text" placeholder="Make, Model, or Year" style="width:100%"/>
+            </div>
+            <div class="col-xs-1"></div>
+            <div class="form-group col-xs-4 form-inline">
+                <div class="col-xs-2 form-group form-horizontal" style="width:100%">
+                    <label for="price" >Price: </label>
+                </div> 
+                <div class=" col-xs-5 form-group form-horizontal">
+                    <input id="priceMin" class="form-control" type="number" step="0.01" placeholder="no min" style="width:90%" min="1"/>
+               </div>
+                
+                <div class="col-xs-5 form-horizontal form-group" >
+                    <input id="priceMax" class="form-control" type="number" step="0.01" placeholder=" no max" style="width:90%" />
+                </div>
+           </div>
+
+            <div class="col-xs-1"></div>
+            <div class="form-group col-xs-4 form-inline">
+                <div class="col-xs-2 form-group form-horizontal" style="width:100%">
+                    <label for="Year">Year</label>
+                </div>
+                <div class=" col-xs-5 form-group form-horizontal">
+                    <input id="startYear" class="form-control" type="number" placeholder="no min" min="1900" style="width:90%"/>
+                </div>
+                <div class="col-xs-1"></div>
+                <div class=" col-xs-5 form-group form-horizontal">
+                    <input id="endYear" class="form-control" type="number"  placeholder="no max" style="width:90%" />
+                </div>
+            </div>
+            <div class="col-lg-6" style="text-align: center">
+                <button type="button" class="btn btn-success" id="searchButton"onclick="executeSearch()" >Search</button>
+            </div>
+            
+        </form>
+     
+    </div>
+    <div class="container" id="SearchResults">
+
+    </div>
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year -Chris Williams</p>
+        </footer>
+    </div>
+    
+    <script src="~/Scripts/jquery-3.2.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+
+        function executeSearch()
+        {
+            $("#carcontainer").hide();
+            $('#SearchResults').empty();
+            var searchstring = $("#quiksearchterm").val();
+            if (searchstring != null)
+            {
+                searchstring = $("#quiksearchterm").val();
+                $.ajax(
+                    {
+                        type: 'GET',
+                        url: 'http://localhost:57545/search/' + searchstring,
+                        success: function (data, status) {
+                            $.each(data, function (index, vehicle) {
+                                var car = "";
+                                car += '<div class="container" style="border:solid; color:black">';
+                                car += '<div>';
+                                car += ' <h3>' + vehicle.ModelYear + ' ' + vehicle.MakeName + ' ' + vehicle.ModelName + '</h3>';
+                                car += '<div class="col-xs-3" id="imageDiv" style="padding: 5px">';
+                                car += '<img style="height: 150px; overflow: hidden", src= "http://localhost:57545/Uploads/' + vehicle.ImageFileName + '"/>';
+                                car += '</div >';                                car += '<div class="col-xs-9">';
+                                car += ' <div class="col-xs-4">';
+                                car += '<p>Body Style:' + vehicle.BodyStyle + '</p > <p>Trans:' + vehicle.TransmissionName + '</p> <p> Color:' + vehicle.ColorName + '</p ></div>';
+                                car += '<div class="col-xs-4">';
+                                car += '<p>Interior: ' + vehicle.InteriorDescription + '</p>';
+                                if (vehicle.IsNew == true) {
+                                    car += '<p>Mileage: New</p>';
+                                }
+                                if (vehicle.IsNew == false) {
+                                    car += '<p>Mileage: ' + vehicle.Mileage + '</p>';
+                                }
+                                car += '<p>VIN: ' + vehicle.VIN + '</p></div>';
+                                car += '<div class="col-xs-4" >';
+                                car += '<p>Sale Price: ' + vehicle.Saleprice +'</p > ';
+                                car += '<p>MSRP: ' + vehicle.MSRP + '</p > ';
+                                car += ' </div></div ></div ><div>';
+                                car += '<div class="col-xs-10"><p style="text-align:center; font-size:14pt">Description: ' + vehicle.CarDescription + '</p > ';
+                                car += '</div>';
+                                car += '<div class="col-xs-2"><a><button<btn btn-info  type="button">Contact US</button></div ></a ></div></div ></div >';//insert link to contact use
+
+                                $('#SearchResults').append(car);
+                            });
+                        },
+                        error: function () {}
+
+                    });
+
+            }
+            var min = $('#priceMin').val();
+            if ($('#priceMin').val()!=null || $('#priceMax').val() !=null)
+            {
+                var min = $('#priceMin').val();
+                var max = 0;
+                if ($('#priceMax').val() == null)
+                {
+                    max =1000000000;
+                }
+                else
+                {
+                    max = $('#priceMax').val();
+                }
+
+                    $.ajax(
+                        {
+                            type: 'GET',
+                            url: 'http://localhost:57545/search/price/' + min + '/' + max,
+                            success: function (data, status) {
+                                $.each(data, function (index, vehicle) {
+                                    var car = "";
+                                    car += '<div class="container" style="border:solid; color:black">';
+                                    car += '<div>';
+                                    car += ' <h3>' + vehicle.ModelYear + ' ' + vehicle.MakeName + ' ' + vehicle.ModelName + '</h3>';
+                                    car += '<div class="col-xs-3" id="imageDiv" style="padding: 5px">';
+                                    car += '<img style="height: 150px; overflow: hidden", src= "http://localhost:57545/Uploads/'+vehicle.ImageFileName+'"/>';
+                                    car += '</div >';
+                                    car += '<div class="col-xs-9">';
+                                    car += ' <div class="col-xs-4">';
+                                    car += '<p>Body Style:' + vehicle.BodyStyle + '</p > <p>Trans:' + vehicle.TransmissionName + '</p> <p> Color:' + vehicle.ColorName + '</p ></div>';
+                                    car += '<div class="col-xs-4">';
+                                    car += '<p>Interior: ' + vehicle.InteriorDescription + '</p>';
+                                    if (vehicle.IsNew == true) {
+                                        car += '<p>Mileage: New</p>';
+                                    }
+                                    if (vehicle.IsNew == false) {
+                                        car += '<p>Mileage: ' + vehicle.Mileage + '</p>';
+                                    }
+                                    car += '<p>VIN: ' + vehicle.VIN + '</p></div>';
+                                    car += '<div class="col-xs-4" >';
+                                    car += '<p>Sale Price: ' + vehicle.Saleprice + '</p > ';
+                                    car += '<p>MSRP: ' + vehicle.MSRP + '</p > ';
+                                    car += ' </div></div ></div ><div>';
+                                    car += '<div class="col-xs-10"><p style="text-align:center; font-size:14pt">Description: ' + vehicle.CarDescription + '</p > ';
+                                    car += '</div>';
+                                    car += '<div class="col-xs-2"><a><button<btn btn-info  type="button">Contact US</button></div ></a ></div></div ></div >';//insert link to contact use
+
+                                    $('#SearchResults').append(car);
+                                });
+                            },
+                            error: function (){}
+                        });
+
+            }
+            var startyear = $("#startYear").val();
+            var endyear = $("#endYear").val();
+            if (startyear != null || endyear != null)
+            {
+                var syear = 1900;
+                if (startyear != null) {
+                    syear = startyear;
+                }
+                if (endyear == null) {
+                    endyear = parseInt($("#currentyear").val())  @* @int.Parse(DateTime.Now.AddYears(2).Year.ToString());*@
+                }
+                $.ajax(
+                    {
+                        type: 'GET',
+                        url: 'http://localhost:57545/search/year/' + syear + '/' + endyear,
+                        success: function (data, status) {
+                            $.each(data, function (index, vehicle) {
+                                var car = "";
+                                car += '<div class="container" style="border:solid; color:black">';
+                                car += '<div>';
+                                car += ' <h3>' + vehicle.ModelYear + ' ' + vehicle.MakeName + ' ' + vehicle.ModelName + '</h3>';
+                                car += '<div class="col-xs-3" id="imageDiv" style="padding: 5px">';
+                                car += '<img style="height: 150px; overflow: hidden", src= "http://localhost:57545/Uploads/' + vehicle.ImageFileName + '"/>';
+                                car += '</div >';                                car += '<div class="col-xs-9">';
+                                car += ' <div class="col-xs-4">';
+                                car += '<p>Body Style:' + vehicle.BodyStyle + '</p > <p>Trans:' + vehicle.TransmissionName + '</p> <p> Color:' + vehicle.ColorName + '</p ></div>';
+                                car += '<div class="col-xs-4">';
+                                car += '<p>Interior: ' + vehicle.InteriorDescription + '</p>';
+                                if (vehicle.IsNew == true) {
+                                    car += '<p>Mileage: New</p>';
+                                }
+                                if (vehicle.IsNew == false) {
+                                    car += '<p>Mileage: ' + vehicle.Mileage + '</p>';
+                                }
+                                car += '<p>VIN: ' + vehicle.VIN + '</p></div>';
+                                car += '<div class="col-xs-4" >';
+                                car += '<p>Sale Price: ' + vehicle.Saleprice + '</p > ';
+                                car += '<p>MSRP: ' + vehicle.MSRP + '</p > ';
+                                car += ' </div></div ></div ><div>';
+                                car += '<div class="col-xs-10"><p style="text-align:center; font-size:14pt">Description: ' + vehicle.CarDescription + '</p > ';
+                                car += '</div>';
+                                car += '<div class="col-xs-2"><a><button<btn btn-info  type="button">Contact US</button></div ></a ></div></div ></div >';//insert link to contact use
+
+                                $('#SearchResults').append(car);
+                            });
+                        },
+                        error: function () { }
+                    });
+            }
+    }
+
+
+
+    </script>
+ 
+
+
+</body>
+</html>
